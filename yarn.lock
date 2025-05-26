@@ -1070,6 +1070,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ui5/webcomponents-fiori@npm:^2.10.0":
+  version: 2.10.0
+  resolution: "@ui5/webcomponents-fiori@npm:2.10.0"
+  dependencies:
+    "@ui5/webcomponents": "npm:2.10.0"
+    "@ui5/webcomponents-base": "npm:2.10.0"
+    "@ui5/webcomponents-icons": "npm:2.10.0"
+    "@ui5/webcomponents-theming": "npm:2.10.0"
+    "@zxing/library": "npm:^0.21.3"
+  checksum: 10c0/c25d7a83c9de23623a617bb109dbfca3bdecac5d77d45a1a4c246223318d38ebb917d1a84fa0accdc0f8c540d2192102d943ac4c48dbb782d68454af50dc0b11
+  languageName: node
+  linkType: hard
+
 "@ui5/webcomponents-icons-business-suite@npm:2.10.0":
   version: 2.10.0
   resolution: "@ui5/webcomponents-icons-business-suite@npm:2.10.0"
@@ -1163,7 +1176,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ui5/webcomponents@npm:^2.10.0":
+"@ui5/webcomponents@npm:2.10.0, @ui5/webcomponents@npm:^2.10.0":
   version: 2.10.0
   resolution: "@ui5/webcomponents@npm:2.10.0"
   dependencies:
@@ -1190,6 +1203,26 @@ __metadata:
   peerDependencies:
     vite: ^4.2.0 || ^5.0.0 || ^6.0.0
   checksum: 10c0/c9f75cde098b9aac62cb512103d7f898a0a173cb78dc9fcf79ca4b3f21a1458cd1955a4383c8c9e3841ce23c5e7f02ed1455e445c9574879b143d40734121fd8
+  languageName: node
+  linkType: hard
+
+"@zxing/library@npm:^0.21.3":
+  version: 0.21.3
+  resolution: "@zxing/library@npm:0.21.3"
+  dependencies:
+    "@zxing/text-encoding": "npm:~0.9.0"
+    ts-custom-error: "npm:^3.2.1"
+  dependenciesMeta:
+    "@zxing/text-encoding":
+      optional: true
+  checksum: 10c0/c6b33998847ad2fda0bce2f07f5b625e33e9dd98f84818ceb976b1193936b69b38ac3120418cca24b38441c711cfd21208b50851967bf8f301567e7f70197268
+  languageName: node
+  linkType: hard
+
+"@zxing/text-encoding@npm:~0.9.0":
+  version: 0.9.0
+  resolution: "@zxing/text-encoding@npm:0.9.0"
+  checksum: 10c0/d15bff181d46c2ab709e7242801a8d40408aa8c19b44462e5f60e766bf59105b44957914ab6baab60d10d466a5e965f21fe890c67dfdb7d5c7f940df457b4d0d
   languageName: node
   linkType: hard
 
@@ -3065,6 +3098,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ts-custom-error@npm:^3.2.1":
+  version: 3.3.1
+  resolution: "ts-custom-error@npm:3.3.1"
+  checksum: 10c0/67cc807d03406d7eeb2b908408d455d253cc43b480d669e2e3ea028b9aaa2c78ad1b392425b86368bbbc3c43a15e4abe304312d87ed845091646ec1937bab982
+  languageName: node
+  linkType: hard
+
 "tslib@npm:^2.3.0":
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
@@ -3127,6 +3167,7 @@ __metadata:
     "@types/react-dom": "npm:^19.1.2"
     "@ui5/webcomponents": "npm:^2.10.0"
     "@ui5/webcomponents-base": "npm:2.10.0"
+    "@ui5/webcomponents-fiori": "npm:^2.10.0"
     "@ui5/webcomponents-react": "npm:^2.10.0"
     "@vitejs/plugin-react": "npm:^4.4.1"
     eslint: "npm:^9.25.0"
