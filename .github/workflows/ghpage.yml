@@ -16,19 +16,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
             node-version: 23
-      - uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
           
-      - name: Install Dependencies
-        run: bun install --frozen-lockfile
+      - name: Install Dependencies 
+        run: npm install
 
       - name: Setup Pages
         id: setup_pages
         uses: actions/configure-pages@v5
 
       - name: Build Vite
-        run: bun run build
+        run: npm run build
         env:
           PAGES_BASE_PATH: ${{ steps.setup_pages.outputs.base_path }}
       
