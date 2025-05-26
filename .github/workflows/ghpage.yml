@@ -20,15 +20,14 @@ jobs:
       - name: Install Dependencies 
         run: |
           corepack enable
-          pnpm install
-          pnpm approve-builds
+          yarn install
 
       - name: Setup Pages
         id: setup_pages
         uses: actions/configure-pages@v5
 
       - name: Build Vite
-        run: pnpm run build
+        run: yarn build
         env:
           PAGES_BASE_PATH: ${{ steps.setup_pages.outputs.base_path }}
       
