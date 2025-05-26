@@ -4,114 +4,122 @@ import { setTheme } from "@ui5/webcomponents-base/dist/config/Theme.js";
 import { getFinalLessContent } from "./getlesssources";
 import { useState } from "react";
 
+// Constants
+const BASE_THEME_NAME = "sap_horizon";
+const STYLE_ELEMENT_ID = "custom-theme";
+
+const DEFAULT_THEMES = {
+  primary: {
+    name: "primary",
+    variables: `@sapPrimary1: red;
+@sapPrimary2: red;`,
+  },
+  secondary: {
+    name: "secondary", 
+    variables: `@sapPrimary1: orange;
+@sapPrimary2: orange;`,
+  },
+} as const;
+
 const less = getFinalLessContent();
 
+// Utility functions
+const generateThemeMetadata = (themeName: string, baseThemeName: string): string => `
+.sapThemeMetaData-Base-baseLib {
+	background-image: url('data:text/plain;utf-8, { "Path": "Base.baseLib.${themeName}.css_variables", "Extends": ["${baseThemeName}","baseTheme"]}');
+}`;
+
+const injectStyleToDocument = (customTheme: string): void => {
+  let styleElement = document.getElementById(STYLE_ELEMENT_ID) as HTMLStyleElement;
+  
+  if (styleElement) {
+    styleElement.textContent = customTheme;
+  } else {
+    styleElement = document.createElement("style");
+    styleElement.id = STYLE_ELEMENT_ID;
+    styleElement.textContent = customTheme;
+    document.head.appendChild(styleElement);
+  }
+};
+
+const compileCustomTheme = async (
+  themeName: string,
+  customVariables: string,
+  baseThemeName: string = BASE_THEME_NAME
+): Promise<void> => {
+  try {
+    const themeMetadata = generateThemeMetadata(themeName, baseThemeName);
+    const customLess = `${less}\n${customVariables}`;
+    
+    const result = await window.less.render(customLess);
+    const customTheme = `${themeMetadata}\n${result.css}`;
+    
+    injectStyleToDocument(customTheme);
+  } catch (error) {
+    console.error("Error compiling theme:", error);
+  }
+};
+
 function App() {
-  const [custom, setCustom] = useState(`@sapPrimary1: violet;
-@sapPrimary2: violet;
-    `);
+  const [primaryThemeVariables, setPrimaryThemeVariables] = useState<string>(
+    DEFAULT_THEMES.primary.variables
+  );
+  
+  const [secondaryThemeVariables, setSecondaryThemeVariables] = useState<string>(
+    DEFAULT_THEMES.secondary.variables
+  );
 
-  const [customSecondary, setCustomSecondary] = useState(`@sapPrimary1: yellow;
-@sapPrimary2: yellow;
-    `);
+  // Theme compilation handlers
+  const handleCompilePrimaryTheme = async (): Promise<void> => {
+    await compileCustomTheme(DEFAULT_THEMES.primary.name, primaryThemeVariables);
+  };
 
-  async function compileTheme() {
-    const themeName = "pinky";
-    const baseThemeName = "sap_horizon";
-    const CUSTOM_THEME_METADATA = `
-.sapThemeMetaData-Base-baseLib {
-	background-image: url('data:text/plain;utf-8, { "Path": "Base.baseLib.${themeName}.css_variables", "Extends": ["${baseThemeName}","baseTheme"]}');
-}`;
+  const handleCompileSecondaryTheme = async (): Promise<void> => {
+    await compileCustomTheme(DEFAULT_THEMES.secondary.name, secondaryThemeVariables);
+  };
 
-    try {
-      const customLess = `
-      ${less}
-      ${custom}
-      `;
+  // Button click handlers
+  const handleSapHorizonClick = (): void => {
+    setTheme(BASE_THEME_NAME);
+  };
 
-      const result = await window.less.render(customLess);
-      const customTheme = `
-      ${CUSTOM_THEME_METADATA}
-      ${result.css}
-      `;
-      // query the style element with id custom-theme
-      const style = document.getElementById("custom-theme");
-      if (style) {
-        style.textContent = customTheme;
-      } else {
-        const style = document.createElement("style");
-        style.id = "custom-theme";
-        style.textContent = customTheme;
-        document.head.appendChild(style);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  const handlePrimaryThemeClick = async (): Promise<void> => {
+    await handleCompilePrimaryTheme();
+    setTheme(DEFAULT_THEMES.primary.name);
+  };
 
-  async function compileSecondaryTheme() {
-    const themeName = "custom";
-    const baseThemeName = "sap_horizon";
-    const CUSTOM_THEME_METADATA = `
-.sapThemeMetaData-Base-baseLib {
-	background-image: url('data:text/plain;utf-8, { "Path": "Base.baseLib.${themeName}.css_variables", "Extends": ["${baseThemeName}","baseTheme"]}');
-}`;
-
-    try {
-      const customLess = `
-      ${less}
-      ${customSecondary}
-      `;
-
-      const result = await window.less.render(customLess);
-      const customTheme = `
-      ${CUSTOM_THEME_METADATA}
-      ${result.css}
-      `;
-      const style = document.getElementById("custom-theme");
-      if (style) {
-        style.textContent = customTheme;
-      } else {
-        const style = document.createElement("style");
-        style.id = "custom-theme";
-        style.textContent = customTheme;
-        document.head.appendChild(style);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  const handleSecondaryThemeClick = async (): Promise<void> => {
+    await handleCompileSecondaryTheme();
+    setTheme(DEFAULT_THEMES.secondary.name);
+  };
 
   return (
     <div>
-      <Button design="Emphasized" onClick={() => setTheme("sap_horizon")}>
+      {/* Theme Selection Buttons */}
+      <Button design="Emphasized" onClick={handleSapHorizonClick}>
         SAP Horizon
       </Button>
-      <Button
-        onClick={async () => {
-          await compileTheme();
-          setTheme("pinky");
-        }}
-      >
-        Pinky
+      
+      <Button onClick={handlePrimaryThemeClick}>
+        Primary
       </Button>
-      <Button
-        onClick={async () => {
-          await compileSecondaryTheme();
-          setTheme("custom");
-        }}
-      >
-        Custom</Button>
+      
+      <Button onClick={handleSecondaryThemeClick}>
+        Secondary
+      </Button>
+
+      {/* Theme Variable Editors */}
       <TextArea
         rows={10}
-        value={custom}
-        onChange={(e) => setCustom(e.target.value)}
-      ></TextArea>
+        value={primaryThemeVariables}
+        onChange={(e) => setPrimaryThemeVariables(e.target.value)}
+      />
+      
       <TextArea
         rows={10}
-        value={customSecondary}
-        onChange={(e) => setCustomSecondary(e.target.value)}
-      ></TextArea>
+        value={secondaryThemeVariables}
+        onChange={(e) => setSecondaryThemeVariables(e.target.value)}
+      />
     </div>
   );
 }
