@@ -21,6 +21,7 @@ jobs:
         run: |
           corepack enable
           pnpm install
+          pnpm approve-builds
 
       - name: Setup Pages
         id: setup_pages

@@ -17,6 +17,9 @@ importers:
       '@ui5/webcomponents':
         specifier: ^2.10.0
         version: 2.10.0
+      '@ui5/webcomponents-base':
+        specifier: 2.10.0
+        version: 2.10.0
       '@ui5/webcomponents-react':
         specifier: ^2.10.0
         version: 2.10.0(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(@ui5/webcomponents-base@2.10.0)(@ui5/webcomponents-fiori@2.10.0)(@ui5/webcomponents-icons@2.10.0)(@ui5/webcomponents@2.10.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
