@@ -1101,7 +1101,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ui5/webcomponents-icons@npm:2.10.0":
+"@ui5/webcomponents-icons@npm:2.10.0, @ui5/webcomponents-icons@npm:^2.10.0":
   version: 2.10.0
   resolution: "@ui5/webcomponents-icons@npm:2.10.0"
   dependencies:
@@ -3168,6 +3168,7 @@ __metadata:
     "@ui5/webcomponents": "npm:^2.10.0"
     "@ui5/webcomponents-base": "npm:2.10.0"
     "@ui5/webcomponents-fiori": "npm:^2.10.0"
+    "@ui5/webcomponents-icons": "npm:^2.10.0"
     "@ui5/webcomponents-react": "npm:^2.10.0"
     "@vitejs/plugin-react": "npm:^4.4.1"
     eslint: "npm:^9.25.0"
