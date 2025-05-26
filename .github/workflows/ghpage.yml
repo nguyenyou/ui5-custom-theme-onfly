@@ -18,14 +18,16 @@ jobs:
             node-version: 23
           
       - name: Install Dependencies 
-        run: npm install
+        run: |
+          corepack enable
+          pnpm install
 
       - name: Setup Pages
         id: setup_pages
         uses: actions/configure-pages@v5
 
       - name: Build Vite
-        run: npm run build
+        run: pnpm run build
         env:
           PAGES_BASE_PATH: ${{ steps.setup_pages.outputs.base_path }}
       
